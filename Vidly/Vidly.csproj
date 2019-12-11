@@ -195,6 +195,34 @@
     <Compile Include="Migrations\201912101935417_ApplyAnnotationsToCustomerName.Designer.cs">
       <DependentUpon>201912101935417_ApplyAnnotationsToCustomerName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912102243052_AddNameInMembershipType.cs" />
+    <Compile Include="Migrations\201912102243052_AddNameInMembershipType.Designer.cs">
+      <DependentUpon>201912102243052_AddNameInMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102250382_SetNameOfMembershipType.cs" />
+    <Compile Include="Migrations\201912102250382_SetNameOfMembershipType.Designer.cs">
+      <DependentUpon>201912102250382_SetNameOfMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102306190_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\201912102306190_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>201912102306190_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102312332_ChangeBirthdateToNullableToCustomer.cs" />
+    <Compile Include="Migrations\201912102312332_ChangeBirthdateToNullableToCustomer.Designer.cs">
+      <DependentUpon>201912102312332_ChangeBirthdateToNullableToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102314466_ChangeBirthdateToNullableInCustomer.cs" />
+    <Compile Include="Migrations\201912102314466_ChangeBirthdateToNullableInCustomer.Designer.cs">
+      <DependentUpon>201912102314466_ChangeBirthdateToNullableInCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102333377_ChangeNameToRequiredInMembershipType.cs" />
+    <Compile Include="Migrations\201912102333377_ChangeNameToRequiredInMembershipType.Designer.cs">
+      <DependentUpon>201912102333377_ChangeNameToRequiredInMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912102343130_DeleteDateInOfTheValueOfCustomerTable.cs" />
+    <Compile Include="Migrations\201912102343130_DeleteDateInOfTheValueOfCustomerTable.Designer.cs">
+      <DependentUpon>201912102343130_DeleteDateInOfTheValueOfCustomerTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -299,6 +327,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912101935417_ApplyAnnotationsToCustomerName.resx">
       <DependentUpon>201912101935417_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102243052_AddNameInMembershipType.resx">
+      <DependentUpon>201912102243052_AddNameInMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102250382_SetNameOfMembershipType.resx">
+      <DependentUpon>201912102250382_SetNameOfMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102306190_AddBirthdateToCustomer.resx">
+      <DependentUpon>201912102306190_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102312332_ChangeBirthdateToNullableToCustomer.resx">
+      <DependentUpon>201912102312332_ChangeBirthdateToNullableToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102314466_ChangeBirthdateToNullableInCustomer.resx">
+      <DependentUpon>201912102314466_ChangeBirthdateToNullableInCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102333377_ChangeNameToRequiredInMembershipType.resx">
+      <DependentUpon>201912102333377_ChangeNameToRequiredInMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102343130_DeleteDateInOfTheValueOfCustomerTable.resx">
+      <DependentUpon>201912102343130_DeleteDateInOfTheValueOfCustomerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
