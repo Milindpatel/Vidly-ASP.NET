@@ -223,9 +223,98 @@
     <Compile Include="Migrations\201912102343130_DeleteDateInOfTheValueOfCustomerTable.Designer.cs">
       <DependentUpon>201912102343130_DeleteDateInOfTheValueOfCustomerTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912161709035_AddMovie.cs" />
+    <Compile Include="Migrations\201912161709035_AddMovie.Designer.cs">
+      <DependentUpon>201912161709035_AddMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912161709509_AddMovie1.cs" />
+    <Compile Include="Migrations\201912161709509_AddMovie1.Designer.cs">
+      <DependentUpon>201912161709509_AddMovie1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162039107_Genres.cs" />
+    <Compile Include="Migrations\201912162039107_Genres.Designer.cs">
+      <DependentUpon>201912162039107_Genres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162050172_AddMovies.cs" />
+    <Compile Include="Migrations\201912162050172_AddMovies.Designer.cs">
+      <DependentUpon>201912162050172_AddMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162053145_AddMovies2.cs" />
+    <Compile Include="Migrations\201912162053145_AddMovies2.Designer.cs">
+      <DependentUpon>201912162053145_AddMovies2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162100500_AddMovies3.cs" />
+    <Compile Include="Migrations\201912162100500_AddMovies3.Designer.cs">
+      <DependentUpon>201912162100500_AddMovies3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162103478_AddMovies4.cs" />
+    <Compile Include="Migrations\201912162103478_AddMovies4.Designer.cs">
+      <DependentUpon>201912162103478_AddMovies4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162107000_AddMovies5.cs" />
+    <Compile Include="Migrations\201912162107000_AddMovies5.Designer.cs">
+      <DependentUpon>201912162107000_AddMovies5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162108431_AddMovies51.cs" />
+    <Compile Include="Migrations\201912162108431_AddMovies51.Designer.cs">
+      <DependentUpon>201912162108431_AddMovies51.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162111119_AddMovies52.cs" />
+    <Compile Include="Migrations\201912162111119_AddMovies52.Designer.cs">
+      <DependentUpon>201912162111119_AddMovies52.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162118328_AddMovies7.cs" />
+    <Compile Include="Migrations\201912162118328_AddMovies7.Designer.cs">
+      <DependentUpon>201912162118328_AddMovies7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162118555_AddMovies8.cs" />
+    <Compile Include="Migrations\201912162118555_AddMovies8.Designer.cs">
+      <DependentUpon>201912162118555_AddMovies8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162120510_AddMovies81.cs" />
+    <Compile Include="Migrations\201912162120510_AddMovies81.Designer.cs">
+      <DependentUpon>201912162120510_AddMovies81.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162124141_AddMovies82.cs" />
+    <Compile Include="Migrations\201912162124141_AddMovies82.Designer.cs">
+      <DependentUpon>201912162124141_AddMovies82.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162125312_AddMovies83.cs" />
+    <Compile Include="Migrations\201912162125312_AddMovies83.Designer.cs">
+      <DependentUpon>201912162125312_AddMovies83.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162126577_AddMovies84.cs" />
+    <Compile Include="Migrations\201912162126577_AddMovies84.Designer.cs">
+      <DependentUpon>201912162126577_AddMovies84.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162127428_AddMovies9.cs" />
+    <Compile Include="Migrations\201912162127428_AddMovies9.Designer.cs">
+      <DependentUpon>201912162127428_AddMovies9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162128529_AddMovies10.cs" />
+    <Compile Include="Migrations\201912162128529_AddMovies10.Designer.cs">
+      <DependentUpon>201912162128529_AddMovies10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162132307_AddMovies11.cs" />
+    <Compile Include="Migrations\201912162132307_AddMovies11.Designer.cs">
+      <DependentUpon>201912162132307_AddMovies11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162141592_AddMovies111.cs" />
+    <Compile Include="Migrations\201912162141592_AddMovies111.Designer.cs">
+      <DependentUpon>201912162141592_AddMovies111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162150448_AddMovies12.cs" />
+    <Compile Include="Migrations\201912162150448_AddMovies12.Designer.cs">
+      <DependentUpon>201912162150448_AddMovies12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912162151025_AddMovies121.cs" />
+    <Compile Include="Migrations\201912162151025_AddMovies121.Designer.cs">
+      <DependentUpon>201912162151025_AddMovies121.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -295,6 +384,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Random.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -348,6 +438,72 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912102343130_DeleteDateInOfTheValueOfCustomerTable.resx">
       <DependentUpon>201912102343130_DeleteDateInOfTheValueOfCustomerTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912161709035_AddMovie.resx">
+      <DependentUpon>201912161709035_AddMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912161709509_AddMovie1.resx">
+      <DependentUpon>201912161709509_AddMovie1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162039107_Genres.resx">
+      <DependentUpon>201912162039107_Genres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162050172_AddMovies.resx">
+      <DependentUpon>201912162050172_AddMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162053145_AddMovies2.resx">
+      <DependentUpon>201912162053145_AddMovies2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162100500_AddMovies3.resx">
+      <DependentUpon>201912162100500_AddMovies3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162103478_AddMovies4.resx">
+      <DependentUpon>201912162103478_AddMovies4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162107000_AddMovies5.resx">
+      <DependentUpon>201912162107000_AddMovies5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162108431_AddMovies51.resx">
+      <DependentUpon>201912162108431_AddMovies51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162111119_AddMovies52.resx">
+      <DependentUpon>201912162111119_AddMovies52.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162118328_AddMovies7.resx">
+      <DependentUpon>201912162118328_AddMovies7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162118555_AddMovies8.resx">
+      <DependentUpon>201912162118555_AddMovies8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162120510_AddMovies81.resx">
+      <DependentUpon>201912162120510_AddMovies81.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162124141_AddMovies82.resx">
+      <DependentUpon>201912162124141_AddMovies82.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162125312_AddMovies83.resx">
+      <DependentUpon>201912162125312_AddMovies83.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162126577_AddMovies84.resx">
+      <DependentUpon>201912162126577_AddMovies84.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162127428_AddMovies9.resx">
+      <DependentUpon>201912162127428_AddMovies9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162128529_AddMovies10.resx">
+      <DependentUpon>201912162128529_AddMovies10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162132307_AddMovies11.resx">
+      <DependentUpon>201912162132307_AddMovies11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162141592_AddMovies111.resx">
+      <DependentUpon>201912162141592_AddMovies111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162150448_AddMovies12.resx">
+      <DependentUpon>201912162150448_AddMovies12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912162151025_AddMovies121.resx">
+      <DependentUpon>201912162151025_AddMovies121.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
