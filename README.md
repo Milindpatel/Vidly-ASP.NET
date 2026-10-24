@@ -22,7 +22,7 @@ Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download).
 
 ```bash
 dotnet run --project Vidly       # https://localhost:7080
-dotnet test Vidly.slnx           # run the tests
+dotnet test --solution Vidly.slnx # run the tests
 ```
 
 The SQLite database (`vidly.db`) is created on first run and seeded with membership types, genres and a few movies. Register an account to add or edit records.
