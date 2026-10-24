@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace Vidly.Models
+namespace Vidly.Models;
+
+/// <summary>Customers on a paid membership must be at least 18. Pay-as-you-go customers have no age limit.</summary>
+public class Min18YearsIfAMember : ValidationAttribute
 {
-    public class Min18YearsIfAMember : ValidationAttribute
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var customer = (Customer)validationContext.ObjectInstance;
+        var customer = (Customer)validationContext.ObjectInstance;
 
-            if(customer.MembershipTypeId == MembershipType.Unknow || 
-                customer.MembershipTypeId == MembershipType.PayAsYouGo)
-            {
-                return ValidationResult.Success;
-            }
+        if (customer.MembershipTypeId is null or MembershipType.Unknown or MembershipType.PayAsYouGo)
+            return ValidationResult.Success;
 
-            if (customer.Birthdate == null)
-                return new ValidationResult("Birthdate is required");
+        if (customer.Birthdate is not { } birthdate)
+            return new ValidationResult("Birthdate is required for paid memberships.");
 
-            var age = DateTime.Today.Year - customer.Birthdate.Value.Year;
+        return AgeOn(birthdate, DateTime.Today) >= 18
+            ? ValidationResult.Success
+            : new ValidationResult("Customer should be at least 18 years old to go on a membership.");
+    }
 
-            return (age >= 18) 
-                ? ValidationResult.Success 
-                : new ValidationResult("Customer should be at least 18 years old to go on a membership.");
-        }
+    public static int AgeOn(DateTime birthdate, DateTime today)
+    {
+        var age = today.Year - birthdate.Year;
+        if (birthdate.Date > today.Date.AddYears(-age))
+            age--;
+        return age;
     }
 }

@@ -1,118 +1,90 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Vidly.Data;
 using Vidly.Models;
-using System;
-
-
 using Vidly.ViewModels;
-using System.Data.Entity.Validation;
 
-namespace Vidly.Controllers
+namespace Vidly.Controllers;
+
+public class MoviesController(ApplicationDbContext context) : Controller
 {
-    public class MoviesController : Controller
+    public async Task<IActionResult> Index(string? search)
     {
-        // GET: Movies/Random
+        var query = context.Movies.Include(m => m.Genre).AsNoTracking();
+        if (!string.IsNullOrWhiteSpace(search))
+            query = query.Where(m => m.Name.Contains(search));
 
-        private ApplicationDbContext _context;
+        ViewData["Search"] = search;
+        return View(await query.OrderBy(m => m.Name).ToListAsync());
+    }
 
-        public MoviesController()
+    public async Task<IActionResult> Details(int id)
+    {
+        var movie = await context.Movies.Include(m => m.Genre).AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
+        return movie == null ? NotFound() : View(movie);
+    }
+
+    [Authorize]
+    public async Task<IActionResult> New() =>
+        View("MovieForm", await WithGenres(new MovieFormViewModel()));
+
+    [Authorize]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var movie = await context.Movies.FindAsync(id);
+        return movie == null ? NotFound() : View("MovieForm", await WithGenres(new MovieFormViewModel(movie)));
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Save(MovieFormViewModel form)
+    {
+        if (!ModelState.IsValid)
+            return View("MovieForm", await WithGenres(form));
+
+        Movie? movie;
+        if (form.Id == 0)
         {
-            _context = new ApplicationDbContext();
+            movie = new Movie { DateAdded = DateTime.UtcNow };
+            context.Movies.Add(movie);
         }
-
-        protected override void Dispose(bool disposing)
+        else
         {
-            _context.Dispose();
-        }
-
-        public ViewResult Index()
-        {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-
-            return View(movies);
-
-        }
-
-        public ActionResult Details(int id)
-        {
-            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
-
+            movie = await context.Movies.FindAsync(form.Id);
             if (movie == null)
-                return HttpNotFound();
-
-            return View(movie);
+                return NotFound();
         }
 
-        public ViewResult New()
-        {
-            var genres = _context.Genres.ToList();
+        movie.Name = form.Name;
+        movie.GenreId = form.GenreId!.Value;
+        movie.ReleaseDate = form.ReleaseDate;
+        movie.NumberInStock = form.NumberInStock!.Value;
 
-            var viewModel = new MovieFormViewModel
-            {
-                Genres = genres
-            };
+        await context.SaveChangesAsync();
+        TempData["Message"] = $"Saved {movie.Name}.";
+        return RedirectToAction(nameof(Index));
+    }
 
-            return View("MovieForm", viewModel);
-        }
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var movie = await context.Movies.FindAsync(id);
+        if (movie == null)
+            return NotFound();
 
-        public ActionResult Edit(int id)
-        {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+        context.Movies.Remove(movie);
+        await context.SaveChangesAsync();
+        TempData["Message"] = $"Deleted {movie.Name}.";
+        return RedirectToAction(nameof(Index));
+    }
 
-            if (movie == null)
-            {
-                return HttpNotFound();
-            }
-
-            var viewModel = new MovieFormViewModel(movie)
-            {
-              
-                Genres = _context.Genres.ToList()
-            };
-
-            return View("MovieForm", viewModel);
-        }   
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Movie movie)
-        {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new MovieFormViewModel(movie)
-                {
-                    Genres = _context.Genres.ToList()
-                };
-
-                return View("MovieForm", viewModel);
-            }
-            if(movie.Id == 0)
-            {
-                movie.DateAdded = DateTime.Now;
-                _context.Movies.Add(movie);
-            }
-            else
-            {
-                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
-                movieInDb.Name = movie.Name;
-                movieInDb.GenreId = movie.GenreId;
-                movieInDb.NumberInStock = movie.NumberInStock;
-                movieInDb.ReleaseDate = movie.ReleaseDate;
-            }
-
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-
-                Console.WriteLine(e);
-            }
-
-            return RedirectToAction("Index", "Movies");
-        }
+    private async Task<MovieFormViewModel> WithGenres(MovieFormViewModel form)
+    {
+        form.Genres = await context.Genres.AsNoTracking().OrderBy(g => g.Name).ToListAsync();
+        return form;
     }
 }

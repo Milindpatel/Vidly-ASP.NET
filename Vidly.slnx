@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Vidly/Vidly.csproj" />
+  <Project Path="Vidly.Tests/Vidly.Tests.csproj" />
+</Solution>

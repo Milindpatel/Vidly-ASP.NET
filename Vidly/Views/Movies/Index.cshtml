@@ -1,31 +1,46 @@
-﻿@model IEnumerable<Vidly.Models.Movie>
+@model IEnumerable<Movie>
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Movies";
 }
 
-<h2>Movies</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Movies</h1>
+    <a class="btn btn-primary" asp-action="New">New Movie</a>
+</div>
 
-<p>
-    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary"})
-</p>
+<partial name="_SearchBox" />
 
-<table class="table table-bordered table-hover">
-    <thead>
-      
+@if (!Model.Any())
+{
+    <p>No movies found.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Genre</th>
+                <th>In stock</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var movie in Model)
             {
                 <tr>
-
-                    <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
-                    <td>@movie.Genre.Name</td>
-
+                    <td><a asp-action="Details" asp-route-id="@movie.Id">@movie.Name</a></td>
+                    <td>@movie.Genre?.Name</td>
+                    <td>@movie.NumberInStock</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@movie.Id">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@movie.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Delete @movie.Name?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
-           
-        </thead>
-    <tbody>
-       
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+}

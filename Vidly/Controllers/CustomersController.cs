@@ -1,102 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Vidly.Data;
 using Vidly.Models;
 using Vidly.ViewModels;
 
-namespace Vidly.Controllers
+namespace Vidly.Controllers;
+
+public class CustomersController(ApplicationDbContext context) : Controller
 {
-    public class CustomersController : Controller
+    public async Task<IActionResult> Index(string? search)
     {
-        private ApplicationDbContext _context;
+        var query = context.Customers.Include(c => c.MembershipType).AsNoTracking();
+        if (!string.IsNullOrWhiteSpace(search))
+            query = query.Where(c => c.Name.Contains(search));
 
-        public CustomersController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
-       public ActionResult New()
-        {
-            var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new NewCustomerViewModel
-            {
-                Customer = new Customer(),
-                MembershipTypes = membershipTypes
-            };
-            return View("New",viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Customer customer)
-        {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new NewCustomerViewModel
-                {
-                    Customer = customer,
-                    MembershipTypes = _context.MembershipTypes.ToList()
-                };
-                return View("New", viewModel);
-            }
-            if(customer.Id == 0)
-                _context.Customers.Add(customer);
-            else
-            {
-                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
-
-                customerInDb.Name = customer.Name;
-                customerInDb.Birthdate = customer.Birthdate;
-                customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-
-
-            }
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Customers");
-        }
-
-        public ActionResult Edit(int id)
-        {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
-
-            if(customer == null)
-            {
-                return HttpNotFound();
-            }
-
-            var viewModel = new NewCustomerViewModel
-            {
-                Customer = customer,
-                MembershipTypes = _context.MembershipTypes.ToList()
-            };
-
-            return View("New", viewModel);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-        // GET: Customers
-        public ViewResult Index()
-        {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-            return View(customers);
-        }
-
-        public ActionResult Details(int id)
-        {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
-
-            if (customer == null)
-                return HttpNotFound();
-
-            return View(customer);
-        }
-
+        ViewData["Search"] = search;
+        return View(await query.OrderBy(c => c.Name).ToListAsync());
     }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var customer = await context.Customers.Include(c => c.MembershipType).AsNoTracking()
+            .SingleOrDefaultAsync(c => c.Id == id);
+        return customer == null ? NotFound() : View(customer);
+    }
+
+    [Authorize]
+    public async Task<IActionResult> New() =>
+        View("CustomerForm", await BuildForm(new Customer()));
+
+    [Authorize]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var customer = await context.Customers.FindAsync(id);
+        return customer == null ? NotFound() : View("CustomerForm", await BuildForm(customer));
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Save([Bind(Prefix = "Customer")] Customer customer)
+    {
+        if (!ModelState.IsValid)
+            return View("CustomerForm", await BuildForm(customer));
+
+        if (customer.Id == 0)
+        {
+            context.Customers.Add(customer);
+        }
+        else
+        {
+            var customerInDb = await context.Customers.FindAsync(customer.Id);
+            if (customerInDb == null)
+                return NotFound();
+
+            customerInDb.Name = customer.Name;
+            customerInDb.Birthdate = customer.Birthdate;
+            customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+        }
+
+        await context.SaveChangesAsync();
+        TempData["Message"] = $"Saved {customer.Name}.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var customer = await context.Customers.FindAsync(id);
+        if (customer == null)
+            return NotFound();
+
+        context.Customers.Remove(customer);
+        await context.SaveChangesAsync();
+        TempData["Message"] = $"Deleted {customer.Name}.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<CustomerFormViewModel> BuildForm(Customer customer) => new()
+    {
+        Customer = customer,
+        MembershipTypes = await context.MembershipTypes.AsNoTracking().OrderBy(m => m.Id).ToListAsync(),
+    };
 }
